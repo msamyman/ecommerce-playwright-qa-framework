@@ -1,14 +1,11 @@
-import { test } from "@playwright/test";
-import { ProductsPage } from "../../pages/ProductsPage";
-import { CartPage } from "../../pages/CartPage";
+import { test } from "../../fixtures/baseTest";
 import productData from "../../test-data/products.json";
 
 test.describe("Product Search & Shopping Cart E2E Flow", () => {
   test("should search for a product, add to cart, and verify cart details", async ({
-    page,
+    productsPage,
+    cartPage,
   }) => {
-    const productsPage = new ProductsPage(page);
-    const cartPage = new CartPage(page);
     const { keyword, expectedProductName, unitPrice } = productData.searchItem;
 
     // 1. Navigate and search

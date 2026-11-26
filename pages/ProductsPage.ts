@@ -20,7 +20,13 @@ export class ProductsPage {
   }
 
   async goto() {
-    await this.page.goto("https://automationexercise.com/products");
+    // Block third-party ad networks that slow down page rendering on automationexercise.com
+    await this.page.route('**/*googlesyndication.com/**', (route) => route.abort());
+    await this.page.route('**/*doubleclick.net/**', (route) => route.abort());
+
+    await this.page.goto('https://automationexercise.com/products', {
+      waitUntil: 'domcontentloaded',
+    });
   }
 
   async searchProduct(keyword: string) {
